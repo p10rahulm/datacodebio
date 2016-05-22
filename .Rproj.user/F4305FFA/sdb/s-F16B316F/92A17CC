@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "dat <- read.csv(\"Data/femaleMiceWeights.csv\")\ndat\nlength(dat$Diet)\ndat[,1,drop=F]==\"hf\"\nmean(subset(dat,Diet ==\"hf\")[,2])\nset.seed(1)\n?sample\nsample(13:24,1)\ndat[sample(13:24,1),2]\ninstall.packages(\"rafalib\")\ninstall.packages(\"downloader\")\nlibrary(rafalib);library(downloader)\ninstall.packages(\"dplyr\")\nlibrary(dplyr)\ndat <- read.csv(\"Data/femaleMiceWeights.csv\")\nView(dat)\np <- dat[dat$Diet==\"hf\",]\ncontrols <- filter(dat,Diet==\"chow\")\ncontrolsbw<-select(controls,Bodyweight)\nunlist(controlsbw)\ncontrols <- filter(dat,Diet==\"chow\") %>% select(Bodyweight) %>% unlist()\nmean(controls)\ndplyr::summarise(filter(msleep, order==\"Primates\"),mean(sleep_total))\nsummarise(filter(msleep, order==\"Primates\"),mean(sleep_total))\n\n\n#Data linked to Mamalian sleep\nurl=\"https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/msleep_ggplot2.csv\"\nfilename <- basename(url)\ndirname = \"data/\"\ndownload(url,paste(dirname,filename,sep=\"\"))\nmsleep = read.csv(\"data/msleep_ggplot2.csv\")\nView(msleep)\nclass(msleep)\nfilter(msleep, order==\"Primates\") %>% nrow()\nfilter(msleep, order==\"Primates\") %>% class()\nfilter(msleep, order==\"Primates\") %>% select(sleep_total) %>%class\nfilter(msleep, order==\"Primates\") %>% select(sleep_total) %>%unlist %>% mean\nfilter(msleep, order==\"Primates\") %>% summary\ndplyr::summarise(filter(msleep, order==\"Primates\"),mean(sleep_total))\nsummarise(filter(msleep, order==\"Primates\"),mean(sleep_total))\nsummarise(filter(msleep, order==\"Primates\"),sleeptm=mean(sleep_total))\n",
+    "created" : 1463748345840.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "176780914",
+    "id" : "92A17CC",
+    "lastKnownWriteTime" : 1463753192,
+    "last_content_update" : 1463753192955,
+    "path" : "C:/Users/Rahul/PycharmProjects/EDXDataforLifeSciences/PH525.1X/week1.R",
+    "project_path" : "week1.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
