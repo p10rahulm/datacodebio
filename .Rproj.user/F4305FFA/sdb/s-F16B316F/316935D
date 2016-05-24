@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls())\ninstall.packages(\"UsingR\")\nlibrary(UsingR)\nlibrary(rafalib)\nx <- father.son$fheight\n\n#-----------------------------------histograms---------------------\nhist(x,breaks =seq( floor(min(x)),ceiling(max(x))),main=\"mytitle\",\n     xlab=\"height in inches\",\n     ylab=\"frequency\")\n\n\n#------------------emperical cumulative distribution percent-------\n\nxs = seq(floor(min(x)),ceiling(max(x)),0.1)\nplot(xs,ecdf(x = x)(xs),type = \"l\",main = \"my ecdf\",xlab = \"height in inches\")\n\n#------------------now check if distribution may be normal---------\n#-------------by comparing ecdf plot with normal for some height---\n#abline(70,5)\nmean(x>70)\n1-pnorm(70,mean(x),sd(x))\n\n#--plot now the normal distribution with our obtained distribution--\nxs = seq(0.5,99.5,1)\ngivenpl <- quantile(x,xs/100)\nnormalpl <- qnorm(xs/100,mean(x),sd(x))\nqqplot(x = givenpl,y = normalpl,\n       main=\"QQ plot of data with normal\",ylab=\"normal\",xlab=\"given\")\nabline(0,1)\n\n#-----same thing with automated function qqnorm---------------------\n\nqqnorm(x)\nqqline(x)\n\n#-------------------------------------------------------------------\n\n#t distributions\ndfs <- c(3,6,12,30)\nmypar(2,2)\nfor(df in dfs){\n        x <- rt(1000,df)\n        qqnorm(x,xlab=\"t quantiles\",main=paste0(\"d.f=\",df),ylim=c(-6,6))\n        qqline(x)\n}\n\n\n#using box plots\nmypar(1,2)\nhist(exec.pay) ##in UsingR package\nqqnorm(exec.pay)\nqqline(exec.pay)\nmypar()\nboxplot(exec.pay, ylab=\"10,000s of dollars\", ylim=c(0,400),breaks=100)\n\n#practice qqnorm\nload(\"data/skew.RData\")\ndim(dat)\nmypar(mfrow=c(3,3)) # mfrow means filled row by row\nfor (i in 1:9) {\n        qqnorm(dat[,i])\n}\n# 4,9 are skewed\nmypar(1,2)\nhist(dat[,4])\nhist(dat[,9])\n\n#practice boxplots\nhead(InsectSprays)\nmypar(1,2)\nboxplot(split(InsectSprays$count, InsectSprays$spray))\nboxplot(InsectSprays$count ~ InsectSprays$spray)\n\nlibrary(dplyr)\ndata(nym.2002, package=\"UsingR\")\nhead(nym.2002)\nboxplot(nym.2002$time~nym.2002$gender)\nhist(nym.2002[nym.2002$gender==\"Male\",\"time\"])\nhist(nym.2002[nym.2002$gender==\"Female\",\"time\"])\n",
+    "created" : 1464021062539.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "216715634",
+    "id" : "316935D",
+    "lastKnownWriteTime" : 1464025449,
+    "last_content_update" : 1464025449206,
+    "path" : "C:/Users/Rahul/PycharmProjects/EDXDataforLifeSciences/PH525.1X/visual inspection.R",
+    "project_path" : "visual inspection.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

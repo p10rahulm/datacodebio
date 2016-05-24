@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1464031490963.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "8C4BBDDA",
+    "lastKnownWriteTime" : 8458438988502401026,
+    "last_content_update" : 1464031490963,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "gt2xp979ew",
+        "caption" : "chick",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=chick&cache_key=gt2xp979ew",
+        "displayedObservations" : "50",
+        "environment" : "",
+        "object" : "chick",
+        "totalObservations" : "50",
+        "variables" : "14"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

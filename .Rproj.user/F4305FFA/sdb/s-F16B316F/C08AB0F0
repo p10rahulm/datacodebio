@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "set.seed(1)\nx=c(rnorm(100,0,1)) ##real distribution\nx[23] <- 100 ##mistake made in 23th measurement\nboxplot(x)\n\n#instead use median\nmedian(x)\n#and instead of standard dev use median absolute dev\nMAD <- 1.4826 * median(abs(x - median(x)))\n# The number 1.4826 is a scaling factor such that the MAD is an \n# unbiased estimate of the standard deviation. Notice how much \n# closer we are to 1 with the MAD:\nmad(x)\n\nmypar(1,2)\nset.seed(1)\nx=rnorm(100,0,1)\ny=rnorm(100,0,1)\nx[23]=100\ny[23]=88\nlibrary(rafalib)\nplot(x,y,main=paste(\"cor=\",signif(cor(x,y),3)))\nabline(0,1)\nplot(rank(x),rank(y),main=paste(\"spearman cor=\",signif(cor(x,y,method=\"spearman\"),3)))\nabline(median(rank(y)),cor(x,y,method=\"spearman\"))\n\n#exercises on robust stats\ndata(ChickWeight)\nplot( ChickWeight$Time, ChickWeight$weight, col=ChickWeight$Diet)\nchick = reshape(ChickWeight, idvar=c(\"Chick\",\"Diet\"), timevar=\"Time\",\n                direction=\"wide\")\nhead(chick)\nView(chick)\nchick = na.omit(chick)\nmean(c(chick$weight.4,3000))/mean(chick$weight.4)\nmedian(c(chick$weight.4,3000))/median(chick$weight.4)\nsd(c(chick$weight.4,3000))/sd(chick$weight.4)\nmad(c(chick$weight.4,3000))/mad(chick$weight.4)\nplot(chick$weight.21,chick$weight.4,col=chick$Diet)\na <- cor(chick$weight.21,chick$weight.4,method=\"pearson\")\nb <- cor(c(3000,chick$weight.21),c(3000,chick$weight.4),method=\"pearson\")\nb/a\n\n\n\n\na1 <- cor(chick$weight.21,chick$weight.4,method=\"spearman\")\nb1 <- cor(c(3000,chick$weight.21),c(3000,chick$weight.4),method=\"spearman\")\nb1/a1\n\n# some more exercises on wilcoxon statistic\nx = chick[chick$Diet==1,\"weight.4\"]\ny = chick[chick$Diet==4,\"weight.4\"]\nt.test(x,y)\nwilcox.test(x,y)\nt.test(c(x,200),y)$p.value\n\n\n#disadvantages of wilcox test\nlibrary(rafalib)\nmypar(1,3)\nboxplot(x,y)\nboxplot(x,y+10)\nboxplot(x,y+100)\n\nt.test(x,y+10)$statistic-t.test(x,y+100)$statistic\nwilcox.test(x,y+10)$statistic-wilcox.test(x,y+100)$statistic #0\n\nwilcox.test(c(1,2,3),c(4,5,6)) \n# above is high p value of 0.1 compared to 0.02 for tstat and cor =1\nt.test(c(1,2,3),c(4,5,6))$p.value # 0.0213\nwilcox.test(c(1,2,3),c(400,500,600))$p.value # still at 0.1\nt.test(c(1,2,3),c(400,500,600))$p.value #0.01316887\n\n#logratios\nx <- 2^(rnorm(100))\ny <- 2^(rnorm(100))\nratios <- x / y\nmypar(1,2)\nhist(ratios)\nlogratios <- log2(ratios)\nhist(logratios)\nplot(x,y)\nplot(log(x),log(y))\n\n\n\n\n#wilcoxon Rank sum test\nset.seed(779) ##779 picked for illustration purposes\nN=25\nx<- rnorm(N,0,1)\ny<- rnorm(N,0,1)\nx[1] <- 5\nx[2] <- 7\ncat(\"t-test pval:\",t.test(x,y)$p.value)\ncat(\"Wilcox test pval:\",wilcox.test(x,y)$p.value)\n\n\nlibrary(rafalib)\nmypar(1,2)\nstripchart(list(x,y),vertical=TRUE,ylim=c(-7,7),ylab=\"Observations\",pch=21,bg=1)\nabline(h=0)\nxrank<-rank(c(x,y))[seq(along=x)]\nyrank<-rank(c(x,y))[-seq(along=y)]\nstripchart(list(xrank,yrank),vertical=TRUE,ylab=\"Ranks\",pch=21,bg=1,cex=1.25)\nws <- sapply(x,function(z) rank(c(z,y))[1]-1)\ntext( rep(1.05,length(ws)), xrank, ws, cex=0.8)\n\n\nW <-sum(ws)\n\n\nn1<-length(x);n2<-length(y)\nZ <- (mean(ws)-n2/2)/ sqrt(n2*(n1+n2+1)/12/n1)\nprint(Z)\n\n\n# In other words:\n# Z-score = ((U/n1)-(n2/2))/sqrt(n2*(n1+n2+1)/(12*n1))\n\n",
+    "created" : 1464030371102.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2498859540",
+    "id" : "C08AB0F0",
+    "lastKnownWriteTime" : 1464033111,
+    "last_content_update" : 1464034140051,
+    "path" : "C:/Users/Rahul/PycharmProjects/EDXDataforLifeSciences/PH525.1X/Median_MAD_Spearman.R",
+    "project_path" : "Median_MAD_Spearman.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

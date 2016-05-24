@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "# General principles\n# The aims of good data graphics is to display data accurately and clearly. According to Karl, some\n# rules for displaying data badly are:\n#         • Display as little information as possible.\n# • Obscure what you do show (with chart junk).\n# • Use pseudo-3D and color gratuitously.\n# • Make a pie chart (preferably in color and 3D).\n# • Use a poorly chosen scale.\n# Ignore significant figures\n\n#good plots\nlibrary(\"downloader\")\nfilename <- \"data/fig1.RData\"\nurl <- \"https://github.com/kbroman/Talk_Graphs/raw/master/R/fig1.RData\"\nif (!file.exists(filename)) download(url,filename)\nload(filename)\nlibrary(rafalib)\n\nmypar()\ndat <- list(Treatment=x,Control=y)\nboxplot(dat,xlab=\"Group\",ylab=\"Response\",cex=0)\nstripchart(dat,vertical=TRUE,method=\"jitter\",pch=16,add=TRUE,col=1)\n\n#----------------------------------------------------------------------------\n\nrm(list=ls())\n#correlation\nlibrary(UsingR)\ndata(\"father.son\")\nx=father.son$fheight\ny=father.son$sheight\nplot(x,y,xlab=\"Father's height in inches\",\n     ylab=\"Son's height in inches\",main=paste(\"correlation =\",signif(cor(x,y),2)))\n\n#stratified box plots\ngroups <- split(y,round(x))\nboxplot(groups)\n#are each of the stratas normally distributed?\ngroups <- split(y,round(x))\nmypar(2,2)\nfor(i in c(5,8,11,14)){\n        qqnorm(groups[[i]],main=paste0(\"X=\",names(groups)[i],\" strata\"),\n               ylim=range(y),xlim=c(-2.5,2.5))\n        qqline(groups[[i]])\n}\n\n#standardize data for correlation/covariance\nx <- (x-mean(x))/sd(x)\ny <- (y-mean(y))/sd(y)\nmeans=tapply(y, round(x*4)/4, mean)\nfatherheights=as.numeric(names(means))\nmypar(1,1)\nplot(fatherheights, means, ylab=\"average of strata of \n     son heights\", ylim=range(fatherheights))\nabline(0, cor(x,y))\n\n\n#correlation can increase due to a single point\nset.seed(1)\na=rnorm(100);a[1]=25\nb=rnorm(100);b[1]=26\nplot(a,b,main=paste(\"correlation = \",signif(cor(a,b),2)))\n\n\n\n#exercises in correlation\ndata(nym.2002, package=\"UsingR\")\nmales = nym.2002[nym.2002$gender==\"Male\",c(\"age\",\"time\")]\nfemales = nym.2002[nym.2002$gender==\"Female\",c(\"age\",\"time\")]\ncor(males$age,males$time,method = \"pearson\")\ncor(females$age,females$time,method = \"pearson\")\nplot(males$age,males$time)\nplot(females$age,females$time)\nboxplot(females$time ~ females$age)\nboxplot(males$time ~ males$age)\ntime = sort(nym.2002$time)\n\n#should we use logs or normal time\nmin(time)/median(time)\nmax(time)/median(time)\nmypar(1,2)\nplot(time/median(time), ylim=c(1/4,4))\nabline(h=c(1/2,1,2))\nplot(log2(time/median(time)),ylim=c(-2,2))\nabline(h=-1:1)\n",
+    "created" : 1464025450545.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2054269278",
+    "id" : "C11DBDEB",
+    "lastKnownWriteTime" : 1464030023,
+    "last_content_update" : 1464030023133,
+    "path" : "C:/Users/Rahul/PycharmProjects/EDXDataforLifeSciences/PH525.1X/visual inspection 2d.R",
+    "project_path" : "visual inspection 2d.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
